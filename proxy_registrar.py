@@ -3,10 +3,11 @@
 
 import os
 import sys
-import time
+import json
 import socket
 import hashlib
 import socketserver
+from datetime import datetime, date, time, timedelta
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
 
@@ -18,11 +19,17 @@ BAD_REQUEST = b"SIP/2.0 400 Bad Request\r\n"
 Not_Allowed = b"SIP/2.0 405 Method Not Allowed\r\n"
 aEjecutar = "./mp32rtp -i 127.0.0.1 -p 23032 < " 
 
-def digest_nonce():
-    pass
+def digest_nonce(server_name, ip):
+    d = hashlib.sha512()
+    d.update(bytes(server_name + ip, 'utf-8'))
+    d.digest()
+    return d.hexdigest()
 
-def digest_response():
-    pass
+def digest_response(nonce, username, passwd):
+    d = hashlib.sha512()
+    d.update(bytes(nonce + username + passwd, 'utf-8'))
+    d.digest()
+    return d.hexdigest()
 
 class Log:
 
@@ -63,7 +70,7 @@ class XMLHandler(ContentHandler):
 
     def __init__(self):
         self.dicc = {'server':{'name':'','ip':'','puerto':''},
-                     'database':{'path':'','passswdpath':''},
+                     'database':{'path':'','passwdpath':''},
                      'log':{'path':''}}
         self.data = {}
 
@@ -90,12 +97,30 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
             user = message.split()[1].split(':')[1]
             if user in self.dicc:
                 expires = message.split('\n')[1].split(':')[1]
-                address = self.client_address[0] + ':' + message.split()[1].split(':')[2]
-                expires_time = (datetime.now() + timedelta(seconds=int(expires))).strftime('%H:%M:%S %d-%m-%Y')
-                self.dicc[user] = {'address': address, 'expires': expires_time}
+                if int(expires) == 0:
+                    del self.dicc[user]
+                else:
+                    expires_time = (datetime.now() + timedelta(seconds=int(expires))).strftime('%H:%M:%S %d-%m-%Y')
+                    self.dicc[user]['expires'] = expires_time
                 self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
             else:
-                pass
+                if 'Authorization' in message:
+                    resp_user = message.split('\n')[2].split('"')[1]
+                    nonce = digest_nonce(config['server_name'], config['server_ip'])
+                    username = message.split('\n')[0].split(':')[1]
+                    response = digest_response(nonce, username, self.passwd[username])
+                    if resp_user == response:
+                        expires = message.split('\n')[1].split(':')[1]
+                        address = self.client_address[0] + ':' + message.split()[1].split(':')[2]
+                        expires_time = (datetime.now() + timedelta(seconds=int(expires))).strftime('%H:%M:%S %d-%m-%Y')
+                        self.dicc[user] = {'address': address, 'expires': expires_time}
+                        self.wfile.write(b'SIP/2.0 200 OK\r\n')
+                    else:
+                        self.wfile.write(b'SIP/2.0 400 Bad Request\r\n')
+                else:
+                    nonce = digest_nonce(config['server_name'], config['server_ip'])
+                    mess = 'SIP/2.0 401 Unauthorized\nWWW Authenticate: Digest nonce="'+ nonce +'"\r\n'
+                    self.wfile.write(bytes(mess, 'utf-8'))
         elif method == 'INVITE':
             pass
         elif method == 'ACK':
@@ -128,7 +153,6 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
             pass
 
     def json2passwd(self):
-        self.expires()
         try:
             with open(config['database_passwdpath'], 'r') as jsonfile:
                 self.passwd = json.load(jsonfile)
