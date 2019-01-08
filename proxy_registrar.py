@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import socket
+import hashlib
 import socketserver
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
@@ -16,6 +17,12 @@ OK = b"SIP/2.0 200 OK\r\n"
 BAD_REQUEST = b"SIP/2.0 400 Bad Request\r\n"
 Not_Allowed = b"SIP/2.0 405 Method Not Allowed\r\n"
 aEjecutar = "./mp32rtp -i 127.0.0.1 -p 23032 < " 
+
+def digest_nonce():
+    pass
+
+def digest_response():
+    pass
 
 class Log:
 
@@ -74,23 +81,59 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
     passwd = {}
 
     def handle(self):
+        self.json2registered()
+        self.json2passwd()
         message = self.rfile.read().decode('utf-8')
         method = message.split()[0]
-        print(method)
+        print(method, 'received')
         if method == 'REGISTER':
-            # p4
-            pass
+            user = message.split()[1].split(':')[1]
+            if user in self.dicc:
+                expires = message.split('\n')[1].split(':')[1]
+                address = self.client_address[0] + ':' + message.split()[1].split(':')[2]
+                expires_time = (datetime.now() + timedelta(seconds=int(expires))).strftime('%H:%M:%S %d-%m-%Y')
+                self.dicc[user] = {'address': address, 'expires': expires_time}
+                self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
+            else:
+                pass
         elif method == 'INVITE':
-            print('INVITE received')
-            self.wfile.write(TRYING + b'\r\n' + RINGING + b'\r\n' + OK + b'\r\n')
+            pass
         elif method == 'ACK':
-            print("ACK RECIVED")
-            os.system(aEjecutar)
+            pass
         elif method == 'BYE':
-            print("BYE RECIVED")
-            self.wfile.write(OK + b'\r\n')
+            pass
         else:
             self.wfile.write(Not_Allowed)
+        self.registered2json()
+
+    def expires(self):
+        now = datetime.now().strftime('%H:%M:%S %d-%m-%Y')
+        del_list = []
+        for usuario in self.dicc:
+            if now >= self.dicc[usuario]['expires']:
+                del_list.append(usuario)
+        for user in del_list:
+            del self.dicc[user]
+
+    def registered2json(self):
+        with open(config['database_path'], 'w') as jsonfile:
+            json.dump(self.dicc, jsonfile, indent=3)
+
+    def json2registered(self):
+        self.expires()
+        try:
+            with open(config['database_path'], 'r') as jsonfile:
+                self.dicc = json.load(jsonfile)
+        except:
+            pass
+
+    def json2passwd(self):
+        self.expires()
+        try:
+            with open(config['database_passwdpath'], 'r') as jsonfile:
+                self.passwd = json.load(jsonfile)
+        except:
+            pass
 
 if __name__ == "__main__":
     # Creamos servidor de eco y escuchamos

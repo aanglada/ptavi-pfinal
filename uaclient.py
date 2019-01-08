@@ -7,7 +7,7 @@ import socket
 from datetime import datetime
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
-from proxy_registrar import Log
+from proxy_registrar import Log, digest_response
 
 usage_error = 'usage error: python3 uaclient.py config.xml method option'
 
@@ -84,7 +84,18 @@ class ClientHandler:
             my_socket.connect(proxy)
             print("Enviando: " + m)
             my_socket.send(bytes(m, 'utf-8'))
+            
+    def get_mess(self, method, option):
+            if str.lower(method) == 'register':
+                return self.register(option)
+            elif str.lower(method) == 'invite':
+                return self.invite(option)
+            elif str.lower(method) == 'bye':
+                return self.bye(option)
+            elif str.lower(method) == 'ack':
+                return self.ack(option)
 
+?
 if __name__ == '__main__':
     if len(sys.argv) != 4:
         sys.exit(usage_error)
