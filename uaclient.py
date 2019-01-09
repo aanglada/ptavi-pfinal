@@ -44,18 +44,18 @@ class ClientHandler:
 
     def register(self, option, digest=''):
         message = method.upper() + ' sip:' + self.config['account_username'] + \
-        ':' + self.config['uaserver_puerto'] + ' SIP/2.0\nExpires: ' + option
+        ':' + self.config['uaserver_puerto'] + ' SIP/2.0\r\nExpires: ' + option
         if digest != '':
-            message += '\nAuthorization: Digest response="'+ digest +'"'
+            message += '\r\nAuthorization: Digest response="' + digest + '"'
         
         return message + '\r\n'
         
     def invite(self, option):
-        message = method.upper() + ' sip:' + option + ' SIP/2.0\n' + \
-                  'Content-Type: application/sdp\n' + 'v=0\n' +'o=' + \
+        message = method.upper() + ' sip:' + option + ' SIP/2.0\r\n' + \
+                  'Content-Type: application/sdp\r\n\r\nv=0\r\no=' + \
                   self.config['account_username'] + ' ' + \
-                  self.config['uaserver_ip'] + 's=misesion\n' + 't=0\n' + \
-                  'm=audio ' + self.config['uaserver_puerto'] + ' RTP\r\n'
+                  self.config['uaserver_ip'] + '\r\ns=misesion\r\nt=0\r\n' + \
+                  'm=audio ' + self.config['rtpaudio_puerto'] + ' RTP\r\n'
         return message
 
     def ack(self, option):
@@ -88,7 +88,6 @@ class ClientHandler:
             data = socket.recv(1024).decode('utf-8')
         except:
             data = ''
-            
         return data
             
     def get_mess(self, method, option, digest=''):
@@ -101,6 +100,12 @@ class ClientHandler:
             elif method.lower() == 'ack':
                 return self.ack(option)
 
+def trying_ringing_ok(data):
+    trying ='100' in data
+    ringing = '180' in data
+    ok = '200' in data
+
+    return trying and ringing and ok
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
@@ -118,17 +123,15 @@ if __name__ == '__main__':
         my_socket.connect(proxy)
         client.send(my_socket, method, option)
         data = client.receive(my_socket)
-        print(data)
-        trying_ringing_ok = ('100' in data) and ('180') and ('200')
-        if '401' in data:
-            nonce = data.split('\n')[1].split('"')[1]
+        if 'SIP/2.0 401 Unauthorized' in data:
+            nonce = data.split('\r\n')[1].split('"')[1]
             user = client.config['account_username']
             passwd = client.config['account_passwd']
             response = digest_response(nonce, user, passwd)
             client.send(my_socket, method, option, response)
             data = client.receive(my_socket)
             print(data)
-        elif trying_ringing_ok:
+        elif trying_ringing_ok(data):
            pass
         else:
             pass
