@@ -23,6 +23,9 @@ class SIPHandler(socketserver.DatagramRequestHandler):
 
     def handle(self):
         message = self.rfile.read().decode('utf-8')
+        ip = self.client_address[0]
+        port = self.client_address[1]
+        log.received_from(ip, port, message)
         method = message.split()[0]
         print(method, 'received')
         if method == 'INVITE':
@@ -44,6 +47,7 @@ class SIPHandler(socketserver.DatagramRequestHandler):
                 else:
                     sdp_body += line + '\r\n'
             self.wfile.write(bytes(invite_resp + sdp_body, 'utf-8'))
+            log.sent_to(ip, port, invite_resp + sdp_body)
         elif method == 'ACK':
             comando = aEjecutar.replace('ip', self.mp32rtp[0])
             comando = comando.replace('port', self.mp32rtp[1])
@@ -51,9 +55,12 @@ class SIPHandler(socketserver.DatagramRequestHandler):
             print('enviando audio a', self.mp32rtp[0] + ':' + self.mp32rtp[1])
             os.system(comando)
         elif method == 'BYE':
+            ok = 'SIP/2.0 200 OK\r\n'
             self.wfile.write(bytes(ok, 'utf-8'))
+            log.sent_to(ip, port, ok)
         else:
             self.wfile.write(bytes(not_allowed, 'utf-8'))
+            log.sent_to(ip, port, not_allowed)
 
 if __name__ == "__main__":
     # Creamos servidor de eco y escuchamos
@@ -68,9 +75,12 @@ if __name__ == "__main__":
     config = cHandler.get_tags()
     server_address = (config['uaserver_ip'], int(config['uaserver_puerto']))
     server = socketserver.UDPServer(server_address, SIPHandler)
+    log = Log(config['log_path'])
 
     print('Listening...')
     try:
+        log.starting()
         server.serve_forever()
     except KeyboardInterrupt:
+        log.finishing()
         print("Finalizado servidor")
