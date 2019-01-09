@@ -85,13 +85,16 @@ class ClientHandler:
                 ' SIP/2.0\r\n'
 
         print("Enviando:\n" + m)
+        log.sent_to(pr_ip, pr_port, m)
         socket.send(bytes(m, 'utf-8'))
 
     def receive(self, socket):
         try:
             data = socket.recv(1024).decode('utf-8')
+            log.received_from(pr_ip, pr_port, data)
         except:
             data = ''
+            log.error('No server listening at ' + pr_ip + ' port ' + pr_port)
         return data
 
     def get_mess(self, method, option, digest=''):
@@ -120,8 +123,11 @@ if __name__ == '__main__':
         method = sys.argv[2]
         option = sys.argv[3]
 
-    client = ClientHandler(xmlfile)
 
+    client = ClientHandler(xmlfile)
+    log = Log(client.config['log_path'])
+
+    log.starting()
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
         my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         pr_ip = client.config['regproxy_ip']
@@ -131,6 +137,7 @@ if __name__ == '__main__':
         data = client.receive(my_socket)
         print('Recibido:\n' + data)
         if 'SIP/2.0 401 Unauthorized' in data:
+            print(data.split('\r\n'))
             nonce = data.split('\r\n')[1].split('"')[1]
             user = client.config['account_username']
             passwd = client.config['account_passwd']
@@ -148,5 +155,4 @@ if __name__ == '__main__':
             mp32rtp = mp32rtp.replace('audio', audio)
             print('enviando audio a', ip + ':' + port + '...')
             os.system(mp32rtp)
-        else:
-            pass
+    log.finishing()
