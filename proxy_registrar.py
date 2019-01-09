@@ -44,7 +44,7 @@ class Log:
     def write(self, msg):
         with open(self.path, 'a') as logfile:
             now = datetime.now().strftime('%Y%m%d%H%M%S')
-            logfile.write(now, msg)
+            logfile.write(now + ' ' + msg)
 
     def starting(self):
         msg = 'Starting...\n'
@@ -95,19 +95,23 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
         self.json2registered()
         self.json2passwd()
         message = self.rfile.read().decode('utf-8')
+        ip_client = self.client_address[0]
+        port_client = self.client_address[1]
+        log.received_from(ip_client, port_client, message)
         method = message.split()[0]
         print(method, 'received')
         if method == 'REGISTER':
             user = message.split()[1].split(':')[1]
             if user in self.dicc:
                 exp = message.split('\n')[1].split(':')[1]
-                if int(expires) == 0:
+                if int(exp) == 0:
                     del self.dicc[user]
                 else:
                     exp_time = datetime.now() + timedelta(seconds=int(exp))
                     exp_date = exp_time.strftime('%H:%M:%S %d-%m-%Y')
                     self.dicc[user]['expires'] = exp_date
                 self.wfile.write(b"SIP/2.0 200 OK\r\n\r\n")
+                log.sent_to(ip_client, port_client, message)
             else:
                 if 'Authorization' in message:
                     resp_user = message.split('\n')[2].split('"')[1]
@@ -126,40 +130,52 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
                         exp_time = now + timedelta(seconds=int(expires))
                         exp_date = exp_time.strftime('%H:%M:%S %d-%m-%Y')
                         self.dicc[user] = {'address': address,
-                                           'expires': expires_time}
+                                           'expires': exp_date}
                         self.wfile.write(b'SIP/2.0 200 OK\r\n')
+                        mess = 'SIP/2.0 200 OK\r\n'
+                        log.sent_to(ip_client, port_client, mess)
                     else:
-                        self.wfile.write(b'SIP/2.0 400 Bad Request\r\n')
+                        self.wfile.write(BAD_REQUEST)
+                        mess = 'SIP/2.0 400 Bad Request\r\n'
+                        log.sent_to(ip_client, port_client, mess)
                 else:
                     server_name = config['server_name']
                     server_ip = config['server_ip']
                     nonce = digest_nonce(server_name, server_ip)
-                    mess = 'SIP/2.0 401 Unauthorized\nWWW Authenticate: ' + \
+                    mess = 'SIP/2.0 401 Unauthorized\r\nWWW Authenticate: ' + \
                            'Digest nonce="' + nonce + '"\r\n'
                     self.wfile.write(bytes(mess, 'utf-8'))
+                    log.sent_to(ip_client, port_client, mess)
         elif method == 'INVITE':
             user_src = message.split('\r\n')[4].split()[0].split('=')[1]
             user_dst = message.split()[1].split(':')[1]
             if user_src in self.dicc and user_dst in self.dicc:
                 mess = self.sent_to(user_dst, message)
                 self.wfile.write(bytes(mess, 'utf-8'))
+                log.sent_to(ip_client, port_client, mess)
             else:
                 self.wfile.write(b'SIP/2.0 404 User Not Found\r\n')
+                mess = 'SIP/2.0 404 User Not Found\r\n'
+                log.sent_to(ip_client, port_client, mess)
         elif method == 'ACK':
-            print(message.split())
             user_dst = message.split()[1].split(':')[1]
             if user_dst in self.dicc:
                 mess = self.sent_to(user_dst, message)
                 self.wfile.write(bytes(mess, 'utf-8'))
+                log.sent_to(ip_client, port_client, mess)
         elif method == 'BYE':
             user_dst = message.split()[1].split(':')[1]
             if user_dst in self.dicc:
                 mess = self.sent_to(user_dst, message)
                 self.wfile.write(bytes(mess, 'utf-8'))
+                log.sent_to(ip_client, port_client, mess)
             else:
                 self.wfile.write(b'SIP/2.0 404 User Not Found\r\n')
+                mess = 'SIP/2.0 404 User Not Found\r\n'
+                log.sent_to(ip_client, port_client, mess)
         else:
             self.wfile.write(Not_Allowed)
+            log.sent_to(ip_client, port_client, mess)
         self.registered2json()
 
     def sent_to(self, user, mess):
@@ -171,8 +187,12 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
             my_socket.send(bytes(mess, 'utf-8'))
             try:
                 data = my_socket.recv(1024).decode('utf-8')
+                log.received_from(ip, port, data)
             except:
                 data = ''
+                error_mess = 'No server listening at ' + ip + ' port ' + \
+                             str(port)
+                log.error(error_mess)
         return data
 
     def expires(self):
@@ -216,9 +236,12 @@ if __name__ == "__main__":
     config = cHandler.get_tags()
     server_address = (config['server_ip'], int(config['server_puerto']))
     server = socketserver.UDPServer(server_address, SIPRegisterHandler)
+    log = Log(config['log_path'])
 
     print('Listening...')
     try:
+        log.starting()
         server.serve_forever()
     except KeyboardInterrupt:
+        log.finishing()
         print("Finalizado servidor")
