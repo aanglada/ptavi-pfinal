@@ -11,7 +11,7 @@ from uaclient import XMLHandler
 from proxy_registrar import Log
 
 usage_error = 'Usage: python uaserver.py config'
-trying = "SIP/2.0 100 Trying\r\n\r\nSIP/2.0 180 Ringing\r\n\r\nSIP/2.0 200 OK\r\n"
+invite_resp = "SIP/2.0 100 Trying\r\n\r\nSIP/2.0 180 Ringing\r\n\r\nSIP/2.0 200 OK\r\n"
 bad_request = "SIP/2.0 400 Bad Request\r\n"
 not_allowed = "SIP/2.0 405 Method Not Allowed\r\n"
 aEjecutar = "./mp32rtp -i ip -p port < audio" 
@@ -39,12 +39,11 @@ class SIPHandler(socketserver.DatagramRequestHandler):
                     sdp_body += line.replace(rtpaudio, config['rtpaudio_puerto']) + '\r\n'
                 else:
                     sdp_body += line + '\r\n'
-            response = trying + sdp_body
-            print(response)
-            self.wfile.write(bytes(response, 'utf-8'))
+            self.wfile.write(bytes(invite_resp + sdp_body, 'utf-8'))
         elif method == 'ACK':
             comando = aEjecutar.replace('ip', self.mp32rtp[0]).replace('port', self.mp32rtp[1])
             comando = comando.replace('audio', config['audio_path'])
+            print('enviando audio a',self.mp32rtp[0] + ':' + self.mp32rtp[1])
             os.system(comando)
         elif method == 'BYE':
             self.wfile.write(bytes(ok, 'utf-8'))
