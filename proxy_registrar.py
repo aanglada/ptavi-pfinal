@@ -130,9 +130,18 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
             else:
                 self.wfile.write(b'SIP/2.0 404 User Not Found\r\n')
         elif method == 'ACK':
-            pass
+            print(message.split())
+            user_dst = message.split()[1].split(':')[1]
+            if user_dst in self.dicc:
+                mess = self.sent_to(user_dst, message)
+                self.wfile.write(bytes(mess, 'utf-8'))
         elif method == 'BYE':
-            pass
+            user_dst = message.split()[1].split(':')[1]
+            if user_dst in self.dicc:
+                mess = self.sent_to(user_dst, message)
+                self.wfile.write(bytes(mess, 'utf-8'))
+            else:
+                self.wfile.write(b'SIP/2.0 404 User Not Found\r\n')
         else:
             self.wfile.write(Not_Allowed)
         self.registered2json()
@@ -142,7 +151,6 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
             my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
             ip = self.dicc[user]['address'].split(':')[0]
             port = int(self.dicc[user]['address'].split(':')[1])
-            print(ip, str(port))
             my_socket.connect((ip, port))
             my_socket.send(bytes(mess, 'utf-8'))
             try:
