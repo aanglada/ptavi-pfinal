@@ -11,10 +11,12 @@ from uaclient import XMLHandler
 from proxy_registrar import Log
 
 usage_error = 'Usage: python uaserver.py config'
-invite_resp = "SIP/2.0 100 Trying\r\n\r\nSIP/2.0 180 Ringing\r\n\r\nSIP/2.0 200 OK\r\n"
+invite_resp = "SIP/2.0 100 Trying\r\n\r\nSIP/2.0 180 Ringing\r\n\r\n"
+invite_resp += "SIP/2.0 200 OK\r\n"
 bad_request = "SIP/2.0 400 Bad Request\r\n"
 not_allowed = "SIP/2.0 405 Method Not Allowed\r\n"
-aEjecutar = "./mp32rtp -i ip -p port < audio" 
+aEjecutar = "./mp32rtp -i ip -p port < audio"
+
 
 class SIPHandler(socketserver.DatagramRequestHandler):
     mp32rtp = []
@@ -31,19 +33,22 @@ class SIPHandler(socketserver.DatagramRequestHandler):
                     user = line.split('=')[1].split()[0]
                     ip = line.split('=')[1].split()[1]
                     self.mp32rtp.append(ip)
-                    new_line = line.replace(user, config['account_username']).replace(ip, config['uaserver_ip'])
+                    new_line = line.replace(user, config['account_username'])
+                    new_line = new_line.replace(ip, config['uaserver_ip'])
                     sdp_body += new_line + '\r\n'
                 elif 'm=' in line:
                     rtpaudio = line.split()[1]
                     self.mp32rtp.append(rtpaudio)
-                    sdp_body += line.replace(rtpaudio, config['rtpaudio_puerto']) + '\r\n'
+                    rtpport = config['rtpaudio_puerto']
+                    sdp_body += line.replace(rtpaudio, rtpport) + '\r\n'
                 else:
                     sdp_body += line + '\r\n'
             self.wfile.write(bytes(invite_resp + sdp_body, 'utf-8'))
         elif method == 'ACK':
-            comando = aEjecutar.replace('ip', self.mp32rtp[0]).replace('port', self.mp32rtp[1])
+            comando = aEjecutar.replace('ip', self.mp32rtp[0])
+            comando = comando.replace('port', self.mp32rtp[1])
             comando = comando.replace('audio', config['audio_path'])
-            print('enviando audio a',self.mp32rtp[0] + ':' + self.mp32rtp[1])
+            print('enviando audio a', self.mp32rtp[0] + ':' + self.mp32rtp[1])
             os.system(comando)
         elif method == 'BYE':
             self.wfile.write(bytes(ok, 'utf-8'))
@@ -61,8 +66,9 @@ if __name__ == "__main__":
     parser.setContentHandler(cHandler)
     parser.parse(open(xmlfile))
     config = cHandler.get_tags()
-    server = socketserver.UDPServer((config['uaserver_ip'], int(config['uaserver_puerto'])), SIPHandler)
-    
+    server_address = (config['uaserver_ip'], int(config['uaserver_puerto']))
+    server = socketserver.UDPServer(server_address, SIPHandler)
+
     print('Listening...')
     try:
         server.serve_forever()
