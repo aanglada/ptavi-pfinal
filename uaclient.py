@@ -10,6 +10,7 @@ from xml.sax.handler import ContentHandler
 from proxy_registrar import Log, digest_response
 
 usage_error = 'usage error: python3 uaclient.py config.xml method option'
+aEjecutar = "./mp32rtp -i ip -p port < audio" 
 
 class XMLHandler(ContentHandler):
 
@@ -33,7 +34,7 @@ class XMLHandler(ContentHandler):
 
 class ClientHandler:
 
-    methods_allowed = ['register','invite','bye']
+    methods_allowed = ['register', 'invite', 'bye', 'ack']
 
     def __init__(self, xmlfile):
         parser = make_parser()
@@ -43,7 +44,7 @@ class ClientHandler:
         self.config = cHandler.get_tags()
 
     def register(self, option, digest=''):
-        message = method.upper() + ' sip:' + self.config['account_username'] + \
+        message = 'REGISTER sip:' + self.config['account_username'] + \
         ':' + self.config['uaserver_puerto'] + ' SIP/2.0\r\nExpires: ' + option
         if digest != '':
             message += '\r\nAuthorization: Digest response="' + digest + '"'
@@ -51,7 +52,7 @@ class ClientHandler:
         return message + '\r\n'
         
     def invite(self, option):
-        message = method.upper() + ' sip:' + option + ' SIP/2.0\r\n' + \
+        message = 'INVITE sip:' + option + ' SIP/2.0\r\n' + \
                   'Content-Type: application/sdp\r\n\r\nv=0\r\no=' + \
                   self.config['account_username'] + ' ' + \
                   self.config['uaserver_ip'] + '\r\ns=misesion\r\nt=0\r\n' + \
@@ -59,11 +60,11 @@ class ClientHandler:
         return message
 
     def ack(self, option):
-        message = method.upper() + ' sip' + option + ' SIP/2.0\r\n'
+        message = 'ACK sip:' + option + ' SIP/2.0\r\n'
         return message
 
     def bye(self, option):
-        message = method.upper() + ' sip:' + option + ' SIP/2.0\r\n'
+        message = 'BYE sip:' + option + ' SIP/2.0\r\n'
         return message
 
 
@@ -79,8 +80,9 @@ class ClientHandler:
             elif method.lower() == 'ack':
                 m = self.ack(option)
         else:
-            mess = method.upper() + ' sip:' + self.config['account_username'] + ' SIP/2.0\r\n'
-        print("Enviando: " + m)
+            m = method.upper() + ' sip:' + self.config['account_username'] + ' SIP/2.0\r\n'
+            
+        print("Enviando:\n" + m)
         socket.send(bytes(m, 'utf-8'))
 
     def receive(self, socket):
@@ -123,6 +125,7 @@ if __name__ == '__main__':
         my_socket.connect(proxy)
         client.send(my_socket, method, option)
         data = client.receive(my_socket)
+        print('Recibido:\n' + data)
         if 'SIP/2.0 401 Unauthorized' in data:
             nonce = data.split('\r\n')[1].split('"')[1]
             user = client.config['account_username']
@@ -130,8 +133,15 @@ if __name__ == '__main__':
             response = digest_response(nonce, user, passwd)
             client.send(my_socket, method, option, response)
             data = client.receive(my_socket)
-            print(data)
+            print('Recibido:\n' + data)
         elif trying_ringing_ok(data):
-           pass
+            sdp = data.split('\r\n')[-7:-1]
+            ip = sdp[1].split()[1]
+            port = sdp[-2].split()[1]
+            audio = client.config['audio_path']
+            client.send(my_socket, 'ack', option)
+            mp32rtp = aEjecutar.replace('ip', ip).replace('port', port).replace('audio', audio)
+            print('enviando audio a', ip + ':' + port + '...')
+            os.system(mp32rtp)
         else:
             pass
