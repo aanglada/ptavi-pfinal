@@ -122,7 +122,13 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
                     mess = 'SIP/2.0 401 Unauthorized\nWWW Authenticate: Digest nonce="'+ nonce +'"\r\n'
                     self.wfile.write(bytes(mess, 'utf-8'))
         elif method == 'INVITE':
-            pass
+            user_src = message.split('\r\n')[4].split()[0].split('=')[1]
+            user_dst = message.split()[1].split(':')[1]
+            if user_src in self.dicc and user_dst in self.dicc:
+                mess = self.sent_to(user_dst, message)
+                self.wfile.write(bytes(mess, 'utf-8'))
+            else:
+                self.wfile.write(b'SIP/2.0 404 User Not Found\r\n')
         elif method == 'ACK':
             pass
         elif method == 'BYE':
@@ -130,6 +136,20 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
         else:
             self.wfile.write(Not_Allowed)
         self.registered2json()
+
+    def sent_to(self, user, mess):
+        with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as my_socket:
+            my_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            ip = self.dicc[user]['address'].split(':')[0]
+            port = int(self.dicc[user]['address'].split(':')[1])
+            print(ip, str(port))
+            my_socket.connect((ip, port))
+            my_socket.send(bytes(mess, 'utf-8'))
+            try:
+                data = my_socket.recv(1024).decode('utf-8')
+            except:
+                data = ''
+        return data
 
     def expires(self):
         now = datetime.now().strftime('%H:%M:%S %d-%m-%Y')
