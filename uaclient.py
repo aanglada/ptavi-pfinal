@@ -11,6 +11,7 @@ from proxy_registrar import Log, digest_response
 
 usage_error = 'usage error: python3 uaclient.py config.xml method option'
 aEjecutar = "./mp32rtp -i ip -p port < audio"
+aEjecutar_cvlc = "cvlc rtp://@ip:port"
 
 
 class XMLHandler(ContentHandler):
@@ -97,16 +98,6 @@ class ClientHandler:
             log.error('No server listening at ' + pr_ip + ' port ' + pr_port)
         return data
 
-    def get_mess(self, method, option, digest=''):
-            if method.lower() == 'register':
-                return self.register(option, digest)
-            elif method.lower() == 'invite':
-                return self.invite(option)
-            elif method.lower() == 'bye':
-                return self.bye(option)
-            elif method.lower() == 'ack':
-                return self.ack(option)
-
 
 def trying_ringing_ok(data):
     trying = '100' in data
@@ -136,7 +127,7 @@ if __name__ == '__main__':
         client.send(my_socket, method, option)
         data = client.receive(my_socket)
         print('Recibido:\n' + data)
-        if 'SIP/2.0 401 Unauthorized' in data:
+        if 'SIP/2.0 401 Unauthorized' in data and option != "0":
             print(data.split('\r\n'))
             nonce = data.split('\r\n')[1].split('"')[1]
             user = client.config['account_username']
@@ -153,6 +144,7 @@ if __name__ == '__main__':
             client.send(my_socket, 'ack', option)
             mp32rtp = aEjecutar.replace('ip', ip).replace('port', port)
             mp32rtp = mp32rtp.replace('audio', audio)
+            cvlc = aEjecutar_cvlc.replace('ip', ip).replace('port', port)
             print('enviando audio a', ip + ':' + port + '...')
-            os.system(mp32rtp)
+            os.system(mp32rtp + " & " + cvlc)
     log.finishing()

@@ -16,6 +16,7 @@ invite_resp += "SIP/2.0 200 OK\r\n"
 bad_request = "SIP/2.0 400 Bad Request\r\n"
 not_allowed = "SIP/2.0 405 Method Not Allowed\r\n"
 aEjecutar = "./mp32rtp -i ip -p port < audio"
+aEjecutar_cvlc = "cvlc rtp://@ip:port"
 
 
 class SIPHandler(socketserver.DatagramRequestHandler):
@@ -49,9 +50,12 @@ class SIPHandler(socketserver.DatagramRequestHandler):
             self.wfile.write(bytes(invite_resp + sdp_body, 'utf-8'))
             log.sent_to(ip, port, invite_resp + sdp_body)
         elif method == 'ACK':
-            comando = aEjecutar.replace('ip', self.mp32rtp[0])
-            comando = comando.replace('port', self.mp32rtp[1])
-            comando = comando.replace('audio', config['audio_path'])
+            mp32rtp = aEjecutar.replace('ip', self.mp32rtp[0])
+            mp32rtp = mp32rtp.replace('port', self.mp32rtp[1])
+            mp32rtp = mp32rtp.replace('audio', config['audio_path'])
+            cvlc = aEjecutar_cvlc.replace('ip', self.mp32rtp[0])
+            cvlc = cvlc.replace('port', self.mp32rtp[1])
+            comando = mp32rtp + " & " + cvlc
             print('enviando audio a', self.mp32rtp[0] + ':' + self.mp32rtp[1])
             os.system(comando)
         elif method == 'BYE':

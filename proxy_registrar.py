@@ -94,6 +94,7 @@ class SIPRegisterHandler(socketserver.DatagramRequestHandler):
     def handle(self):
         self.json2registered()
         self.json2passwd()
+        print(self.dicc)
         message = self.rfile.read().decode('utf-8')
         ip_client = self.client_address[0]
         port_client = self.client_address[1]

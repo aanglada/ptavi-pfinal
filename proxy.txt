@@ -1,0 +1,185 @@
+    stat20190109144345 Starting...
+20190109144417 Received from 127.0.0.1:35618: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190109144417 Sent to 127.0.0.1:35618: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109144439 Received from 127.0.0.1:53718: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190109144439 Sent to 127.0.0.1:53718: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109144529 Received from 127.0.0.1:47536: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190109144529 Sent to 127.0.0.1:47536: SIP/2.0 401 Unauthorized
+WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109144538 Finishing...
+20190109144548 Starting...
+20190109144549 Received from 127.0.0.1:55648: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190109144549 Sent to 127.0.0.1:55648: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109144549 Received from 127.0.0.1:55648: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190109144557 Received from 127.0.0.1:33409: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 
+20190109144557 Sent to 127.0.0.1:33409: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109144557 Received from 127.0.0.1:33409: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 Authorization: Digest response="d3bbe64277d95600aaa0dda99f6546ad42642e8b11facd787ca3484b3ea8586f1e88323a1e3d75189e83ca24c88b61e30ca8d68e718724fcc2b75151dfded305" 
+20190109144615 Received from 127.0.0.1:34290: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190109144615 Sent to 127.0.0.1:34290: SIP/2.0 404 User Not Found 
+20190109144731 Finishing...
+20190109144749 Starting...
+20190109144755 Received from 127.0.0.1:39708: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190109144755 Sent to 127.0.0.1:39708: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109144755 Received from 127.0.0.1:39708: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190109144755 Sent to 127.0.0.1:39708: SIP/2.0 200 OK 
+20190109144758 Received from 127.0.0.1:39189: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 
+20190109144758 Sent to 127.0.0.1:39189: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109144758 Received from 127.0.0.1:39189: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 Authorization: Digest response="d3bbe64277d95600aaa0dda99f6546ad42642e8b11facd787ca3484b3ea8586f1e88323a1e3d75189e83ca24c88b61e30ca8d68e718724fcc2b75151dfded305" 
+20190109144758 Sent to 127.0.0.1:39189: SIP/2.0 200 OK 
+20190109144801 Received from 127.0.0.1:48052: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190109144801 Received from 127.0.0.1:5002: 
+20190109144801 Sent to 127.0.0.1:48052: 
+20190109144850 Finishing...
+20190109144914 Starting...
+20190109144916 Received from 127.0.0.1:49313: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190109144916 Sent to 127.0.0.1:49313: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109144916 Received from 127.0.0.1:49313: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190109144916 Sent to 127.0.0.1:49313: SIP/2.0 200 OK 
+20190109144918 Received from 127.0.0.1:53464: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 
+20190109144918 Sent to 127.0.0.1:53464: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109144918 Received from 127.0.0.1:53464: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 Authorization: Digest response="d3bbe64277d95600aaa0dda99f6546ad42642e8b11facd787ca3484b3ea8586f1e88323a1e3d75189e83ca24c88b61e30ca8d68e718724fcc2b75151dfded305" 
+20190109144918 Sent to 127.0.0.1:53464: SIP/2.0 200 OK 
+20190109144922 Received from 127.0.0.1:38645: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190109144922 Received from 127.0.0.1:5002: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190109144922 Sent to 127.0.0.1:38645: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190109144922 Received from 127.0.0.1:38645: ACK sip:ua2@sip.com SIP/2.0 
+20190109144930 Received from 127.0.0.1:5002: 
+20190109144930 Sent to 127.0.0.1:38645: 
+20190109144936 Received from 127.0.0.1:53922: BYE sip:ua2@sip.com SIP/2.0 
+20190109144936 Received from 127.0.0.1:5002: SIP/2.0 200 OK 
+20190109144936 Sent to 127.0.0.1:53922: SIP/2.0 200 OK 
+20190109144943 Received from 127.0.0.1:57781: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190109145018 Finishing...
+20190109145019 Starting...
+20190109145020 Received from 127.0.0.1:60744: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190109145020 Sent to 127.0.0.1:60744: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190109145024 Received from 127.0.0.1:48640: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 0 
+20190109145024 Sent to 127.0.0.1:48640: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 0 
+20190109145042 Finishing...
+20190109145115 Starting...
+20190109145120 Received from 127.0.0.1:56073: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190109145120 Sent to 127.0.0.1:56073: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109145120 Received from 127.0.0.1:56073: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190109145120 Sent to 127.0.0.1:56073: SIP/2.0 200 OK 
+20190109145122 Received from 127.0.0.1:41304: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 
+20190109145122 Sent to 127.0.0.1:41304: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109145122 Received from 127.0.0.1:41304: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 Authorization: Digest response="d3bbe64277d95600aaa0dda99f6546ad42642e8b11facd787ca3484b3ea8586f1e88323a1e3d75189e83ca24c88b61e30ca8d68e718724fcc2b75151dfded305" 
+20190109145122 Sent to 127.0.0.1:41304: SIP/2.0 200 OK 
+20190109145127 Received from 127.0.0.1:42812: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190109145127 Received from 127.0.0.1:5002: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190109145127 Sent to 127.0.0.1:42812: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190109145127 Received from 127.0.0.1:42812: ACK sip:ua2@sip.com SIP/2.0 
+20190109145135 Received from 127.0.0.1:5002: 
+20190109145135 Sent to 127.0.0.1:42812: 
+20190109145138 Received from 127.0.0.1:45920: BYE sip:ua2@sip.com SIP/2.0 
+20190109145138 Received from 127.0.0.1:5002: SIP/2.0 200 OK 
+20190109145138 Sent to 127.0.0.1:45920: SIP/2.0 200 OK 
+20190109145143 Received from 127.0.0.1:41928: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190109145143 Sent to 127.0.0.1:41928: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190109145145 Received from 127.0.0.1:60296: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 0 
+20190109145145 Sent to 127.0.0.1:60296: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 0 
+20190109145159 Received from 127.0.0.1:41682: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190109145159 Sent to 127.0.0.1:41682: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190109145159 Received from 127.0.0.1:41682: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190109145159 Sent to 127.0.0.1:41682: SIP/2.0 200 OK 
+20190109145201 Received from 127.0.0.1:55965: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190109145201 Sent to 127.0.0.1:55965: SIP/2.0 404 User Not Found 
+20190109145203 Received from 127.0.0.1:59043: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190109145203 Sent to 127.0.0.1:59043: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190109145833 Finishing...
+20190524133701 Starting...
+20190524133729 Received from 127.0.0.1:38729: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190524133729 Sent to 127.0.0.1:38729: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524133729 Received from 127.0.0.1:38729: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190524133729 Sent to 127.0.0.1:38729: SIP/2.0 200 OK 
+20190524133759 Received from 127.0.0.1:46601: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 
+20190524133759 Sent to 127.0.0.1:46601: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524133759 Received from 127.0.0.1:46601: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 Authorization: Digest response="d3bbe64277d95600aaa0dda99f6546ad42642e8b11facd787ca3484b3ea8586f1e88323a1e3d75189e83ca24c88b61e30ca8d68e718724fcc2b75151dfded305" 
+20190524133759 Sent to 127.0.0.1:46601: SIP/2.0 200 OK 
+20190524133838 Received from 127.0.0.1:37740: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190524133838 Received from 127.0.0.1:5002: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524133838 Sent to 127.0.0.1:37740: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524133838 Received from 127.0.0.1:37740: ACK sip:ua2@sip.com SIP/2.0 
+20190524133938 Received from 127.0.0.1:5002: 
+20190524133938 Sent to 127.0.0.1:37740: 
+20190524133948 Received from 127.0.0.1:57038: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190524133948 Received from 127.0.0.1:5002: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524133948 Sent to 127.0.0.1:57038: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524133948 Received from 127.0.0.1:57038: ACK sip:ua2@sip.com SIP/2.0 
+20190524134339 Received from 127.0.0.1:5002: 
+20190524134339 Sent to 127.0.0.1:57038: 
+20190524134339 Received from 127.0.0.1:58273: BYE sip:ua2@sip.com SIP/2.0 
+20190524134339 Received from 127.0.0.1:5002: SIP/2.0 200 OK 
+20190524134339 Sent to 127.0.0.1:58273: SIP/2.0 200 OK 
+20190524134423 Received from 127.0.0.1:46550: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190524134423 Received from 127.0.0.1:5002: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524134423 Sent to 127.0.0.1:46550: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524134423 Received from 127.0.0.1:46550: ACK sip:ua2@sip.com SIP/2.0 
+20190524134423 Received from 127.0.0.1:5002: 
+20190524134423 Sent to 127.0.0.1:46550: 
+20190524134615 Received from 127.0.0.1:41698: BYE sip:ua2@sip.com SIP/2.0 
+20190524134615 Received from 127.0.0.1:5002: SIP/2.0 200 OK 
+20190524134615 Sent to 127.0.0.1:41698: SIP/2.0 200 OK 
+20190524134650 Received from 127.0.0.1:43300: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524134650 Sent to 127.0.0.1:43300: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524134701 Received from 127.0.0.1:43042: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190524134701 Sent to 127.0.0.1:43042: SIP/2.0 404 User Not Found 
+20190524134709 Received from 127.0.0.1:39910: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524134709 Sent to 127.0.0.1:39910: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524134709 Received from 127.0.0.1:39910: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190524134709 Sent to 127.0.0.1:39910: SIP/2.0 200 OK 
+20190524134713 Received from 127.0.0.1:34032: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190524134713 Received from 127.0.0.1:5002: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524134713 Sent to 127.0.0.1:34032: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524134713 Received from 127.0.0.1:34032: ACK sip:ua2@sip.com SIP/2.0 
+20190524134713 Received from 127.0.0.1:5002: 
+20190524134713 Sent to 127.0.0.1:34032: 
+20190524134724 Received from 127.0.0.1:46740: BYE sip:ua2@sip.com SIP/2.0 
+20190524134724 Received from 127.0.0.1:5002: SIP/2.0 200 OK 
+20190524134724 Sent to 127.0.0.1:46740: SIP/2.0 200 OK 
+20190524134728 Received from 127.0.0.1:60791: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524134728 Sent to 127.0.0.1:60791: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524134731 Received from 127.0.0.1:48426: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524134731 Sent to 127.0.0.1:48426: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524134731 Received from 127.0.0.1:48426: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190524134731 Sent to 127.0.0.1:48426: SIP/2.0 200 OK 
+20190524134909 Finishing...
+20190524134941 Starting...
+20190524134946 Received from 127.0.0.1:40845: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190524134946 Sent to 127.0.0.1:40845: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524134946 Received from 127.0.0.1:40845: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190524134946 Sent to 127.0.0.1:40845: SIP/2.0 200 OK 
+20190524135003 Received from 127.0.0.1:43125: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524135003 Sent to 127.0.0.1:43125: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524135009 Received from 127.0.0.1:49338: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524135009 Sent to 127.0.0.1:49338: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524135009 Received from 127.0.0.1:49338: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190524135009 Sent to 127.0.0.1:49338: SIP/2.0 200 OK 
+20190524135140 Received from 127.0.0.1:32939: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524135140 Sent to 127.0.0.1:32939: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524135154 Received from 127.0.0.1:48782: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524135154 Sent to 127.0.0.1:48782: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524135206 Received from 127.0.0.1:33929: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 0 
+20190524135206 Sent to 127.0.0.1:33929: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524135618 Received from 127.0.0.1:40358: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 
+20190524135618 Sent to 127.0.0.1:40358: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524135618 Received from 127.0.0.1:40358: REGISTER sip:ua1@sip.com:5001 SIP/2.0 Expires: 3600 Authorization: Digest response="5d70e19dbf3f4936c7f01aa101b630a21896fa24f0b16531b3fc18d8f6d540cd0f4abb34c8c4d7aed4326a4130f84c20d4fe5f9c98aab5be3e8f42cd6590d218" 
+20190524135618 Sent to 127.0.0.1:40358: SIP/2.0 200 OK 
+20190524135623 Received from 127.0.0.1:35362: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 
+20190524135623 Sent to 127.0.0.1:35362: SIP/2.0 401 Unauthorized WWW Authenticate: Digest nonce="73aa08523f7d04f19e99302a1c066622c81ec8721b9e878eff316373fcf9cbd7b9c261d06da1b30f92d0cd9c0b1dde51a78ce8a788725acade52d6ea16a80e99" 
+20190524135623 Received from 127.0.0.1:35362: REGISTER sip:ua2@sip.com:5002 SIP/2.0 Expires: 3600 Authorization: Digest response="d3bbe64277d95600aaa0dda99f6546ad42642e8b11facd787ca3484b3ea8586f1e88323a1e3d75189e83ca24c88b61e30ca8d68e718724fcc2b75151dfded305" 
+20190524135623 Sent to 127.0.0.1:35362: SIP/2.0 200 OK 
+20190524135652 Received from 127.0.0.1:44169: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190524135652 Received from 127.0.0.1:5002: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524135652 Sent to 127.0.0.1:44169: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524135652 Received from 127.0.0.1:44169: ACK sip:ua2@sip.com SIP/2.0 
+20190524135652 Received from 127.0.0.1:5002: 
+20190524135652 Sent to 127.0.0.1:44169: 
+20190524135924 Received from 127.0.0.1:34457: INVITE sip:ua2@sip.com SIP/2.0 Content-Type: application/sdp  v=0 o=ua1@sip.com 127.0.0.1 s=misesion t=0 m=audio 4095 RTP 
+20190524135924 Received from 127.0.0.1:5002: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524135924 Sent to 127.0.0.1:34457: SIP/2.0 100 Trying  SIP/2.0 180 Ringing  SIP/2.0 200 OK Content-Type: application/sdp  v=0 o=ua2@sip.com 127.0.0.1 s=misesion t=0 m=audio 4096 RTP  
+20190524135924 Received from 127.0.0.1:34457: ACK sip:ua2@sip.com SIP/2.0 
+20190524140043 Received from 127.0.0.1:5002: 
+20190524140043 Sent to 127.0.0.1:34457: 
